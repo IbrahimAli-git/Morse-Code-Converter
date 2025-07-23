@@ -1,8 +1,7 @@
 # Morse code converter
 # .... . .-.. .-.. ---
 
-def morse_code_converter():
-    morse_dict = {
+MORSE_DICT = {
         'a': '.-',    'b': '-...',  'c': '-.-.',  'd': '-..',   'e': '.',
         'f': '..-.',  'g': '--.',   'h': '....',  'i': '..',    'j': '.---',
         'k': '-.-',   'l': '.-..',  'm': '--',    'n': '-.',    'o': '---',
@@ -10,22 +9,30 @@ def morse_code_converter():
         'u': '..-',   'v': '...-',  'w': '.--',   'x': '-..-',  'y': '-.--',
         'z': '--..'
     }
-    morse_to_letter = {v: k for k, v in morse_dict.items()}
-    morse_code = input("Please enter morse code").strip()
-    letters = morse_code.split(" ")
-    word = []
+MORSE_TO_LETTER = {v: k for k, v in MORSE_DICT.items()}
 
-    for letter in letters:
-        if letter in morse_to_letter:
-            value = morse_to_letter.get(letter)
-            word.append(value)
-        else:
-            word.append("?")
+def morse_code_converter(morse_code):
+    decoded_letters = []
+    for word in morse_code.split("/"):
+        letter = word.split(" ")
+        for l in letter:
+            value = MORSE_TO_LETTER.get(l)
+            if l in MORSE_TO_LETTER:
+                decoded_letters.append(value)
+        decoded_letters.append(" ")
 
-    result = "".join(word)
+    result = "".join(decoded_letters)
     return result
 
 def main():
-    morse_code_converter()
+   end = False
+   while not end:
+       morse_code = input("Please enter morse code: ").strip()
+       result =  morse_code_converter(morse_code=morse_code)
+       print(result)
+       end_program = input("Do you want to continue (y/n)")
+       if end_program == "n":
+           end = True
 
+main()
 
